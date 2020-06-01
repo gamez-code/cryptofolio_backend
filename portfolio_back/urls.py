@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
-from apps.users.urls import router
+from apps.users.urls import router as users
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.currency.urls import router as currency
+from apps.users.views import CreateUser
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -43,10 +44,11 @@ urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    url(r'^user/', include(router.urls)),
+    url(r'^user/', include(users.urls)),
     url(r'^', include(currency.urls)),
     path('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-refresh/', refresh_jwt_token),
+    path('create_user/', CreateUser.as_view())
 ]
