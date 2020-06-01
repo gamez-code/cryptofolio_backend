@@ -3,7 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.currency.permissions import IsOwnerOrReadOnly
+from apps.currency.permissions import IsOwnerOrReadOnly, IsOwnerOrReadOnlyAsset
 from .serializers import AssetSerializer, \
     PortfolioSerializer, AssetsUserSerializer, PortfolioWalletSerializer
 from .models import AssetsUser, Asset, Portfolio
@@ -15,6 +15,7 @@ from rest_framework import filters
 class AssetsUserViewSet(viewsets.ModelViewSet):
     serializer_class = AssetsUserSerializer
     queryset = AssetsUser.objects.all()
+    permission_classes = [IsOwnerOrReadOnlyAsset]
 
 
 class PortfolioViewSet(viewsets.ModelViewSet):
@@ -33,7 +34,7 @@ class AssetViewSet(viewsets.ModelViewSet):
     serializer_class = AssetSerializer
     queryset = Asset.objects.all()
     filter_backends = [filters.SearchFilter]
-    search_fields = ['=cod', '=name']
+    search_fields = ['cod', 'name']
 
     @action(detail=False, url_name="daily_btc_price_currency")
     def get_all_bitcoin_price(self, request, *args, **kwargs):
