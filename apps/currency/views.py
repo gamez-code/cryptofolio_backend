@@ -4,12 +4,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.currency.permissions import IsOwnerOrReadOnly
-from .serializers import  AssetSerializer, \
+from .serializers import AssetSerializer, \
     PortfolioSerializer, AssetsUserSerializer, PortfolioWalletSerializer
 from .models import AssetsUser, Asset, Portfolio
 from blockchain.exchangerates import get_ticker
 from forex_python.converter import CurrencyRates
 from rest_framework import filters
+
 
 class AssetsUserViewSet(viewsets.ModelViewSet):
     serializer_class = AssetsUserSerializer

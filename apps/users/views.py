@@ -22,6 +22,6 @@ class CreateUser(APIView):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        user = User.objects.get(username=serializer.data["username"])
+        user = User.objects.get(username=request.data['username'])
         Portfolio.objects.create(user=user, total=0)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
