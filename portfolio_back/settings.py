@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
+    'django_celery_beat',
     'rest_framework',
     'drf_yasg',
     'corsheaders',
@@ -139,3 +141,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000"
 ]
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BROKER_URL = "redis://localhost:6379"

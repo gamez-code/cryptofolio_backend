@@ -18,8 +18,8 @@ class Portfolio(models.Model):
 
 class Asset(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    name = models.CharField(max_length=256, null=True, blank=True)
-    cod = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, unique=True, null=True, blank=True)
+    cod = models.CharField(max_length=256, unique=True)
     logo = models.URLField(null=True, blank=True)
     price = models.FloatField()
 
