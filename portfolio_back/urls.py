@@ -24,7 +24,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from apps.currency.urls import router as currency
-from apps.users.views import CreateUser
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -50,5 +50,4 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-refresh/', refresh_jwt_token),
-    path('create_user/', CreateUser.as_view())
 ]
